@@ -1,0 +1,354 @@
+{
+  "name": "first",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "test",
+        "formDescription": "my first workflow",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "full name ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "age",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "phone number",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3b86f515-babc-40e0-b571-2ebe5b64a131",
+      "name": "On form submission",
+      "webhookId": "036cb6c4-721a-4fb4-9019-daa06cf1a07c"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.age }}",
+                    "rightValue": 18,
+                    "operator": {
+                      "type": "number",
+                      "operation": "gt"
+                    },
+                    "id": "8a8a41e0-c887-4768-9b43-c8b360467362"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "1429c4b1-a0be-4d9a-b285-2486675a7f94",
+                    "leftValue": "={{ $json.age }}",
+                    "rightValue": 18,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lte"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        352,
+        0
+      ],
+      "id": "d5ddada7-1aad-44a0-b4a8-acc3ba866b80",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tyxI5IyAkqeHlqCDfz7nTQYqE3NSwxCRewn6VHWzCWg",
+          "mode": "list",
+          "cachedResultName": "form n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tyxI5IyAkqeHlqCDfz7nTQYqE3NSwxCRewn6VHWzCWg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "greater than 18",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tyxI5IyAkqeHlqCDfz7nTQYqE3NSwxCRewn6VHWzCWg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json['full name '] }}",
+            "Email": "={{ $json.Email }}",
+            "phone number": "={{ $json['phone number'] }}",
+            " Date of submission": "={{ $('Code in JavaScript').item.json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone number",
+              "displayName": "phone number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": " Date of submission",
+              "displayName": " Date of submission",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        544,
+        -160
+      ],
+      "id": "482a4494-7e6b-4adf-b5f6-0e800343286b",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BJmZuhWTC7ZOedxs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tyxI5IyAkqeHlqCDfz7nTQYqE3NSwxCRewn6VHWzCWg",
+          "mode": "list",
+          "cachedResultName": "form n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tyxI5IyAkqeHlqCDfz7nTQYqE3NSwxCRewn6VHWzCWg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1401318354,
+          "mode": "list",
+          "cachedResultName": "lesss than 18",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tyxI5IyAkqeHlqCDfz7nTQYqE3NSwxCRewn6VHWzCWg/edit#gid=1401318354"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('On form submission').item.json['full name '] }}",
+            "phone number": "={{ $('On form submission').item.json['phone number'] }}",
+            "Email": "={{ $('On form submission').item.json.Email }}",
+            " Date of submission": "={{ $('Code in JavaScript').item.json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone number",
+              "displayName": "phone number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": " Date of submission",
+              "displayName": " Date of submission",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        112
+      ],
+      "id": "bce0084b-d0d4-4b05-8950-91bff01f7ee1",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BJmZuhWTC7ZOedxs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst updatedItems = items.map((item) => {\n  const date = new Date(item?.json?.submittedAt);\n  const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;\n  item.json.submittedAt = formattedDate;\n  return item;\n});\nreturn updatedItems;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "933cb249-31a6-4185-8d37-71137fe9a54b",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "full name ": "dofa hne",
+          "age": 15,
+          "phone number": 5849426752,
+          "Email": "dofakol@gmail.com",
+          "submittedAt": "2026-02-01T13:29:44.211+01:00",
+          "formMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "74803942-cae1-4509-814f-7d1e07c2fdbc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4f9acdf6d024d1cc32de229a7dbb464a698ace7d53a61f774b6c7f9a8efe90b5"
+  },
+  "id": "3nSi04Z3o0FwuSS39lr6A",
+  "tags": []
+}
